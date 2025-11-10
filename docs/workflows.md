@@ -1,0 +1,46 @@
+# "Workflows"
+
+- Übung tippen
+  - Text wählen
+    - generierter Text
+    - expliziter Text aus Datei
+  - Konfiguration der Tippfehlerbehandlung
+    - Fehler übergehen (einfach weitertippen -> Schreibmaschinen-Modus)
+    - ein Fehler -> Tod (Single-Chance-Modus)
+    - Fehler explizit korrigieren (optional löschen und korrekt tippen -> Editor-Modus)
+    - Fehler automatisch korrigieren (stehen bleiben bis richtiges Zeichen getippt -> Smart-Typer)
+  - Übung durchführen
+    - Text anzeigen
+    - Zeichen tippen
+    - Tippfehlerbehandlung
+    - Curser bewegt sich weiter 
+    - Ende erreicht
+  - Statistiken anzeigen
+    - wpm / wps
+    - cpm / cps
+    - kpm / kps
+  - Optionen:
+    - nochmal spielen (gleicher Text, gleiche Konfig)
+    - andere Übung
+    - beenden
+- eine Sitzung starten 
+  - Teilnahmelink anzeigen (ab jetzt dauerhaft c:)
+  - Text wählen [...]
+  - Konfiguration der Tippfehlerbehandlung [...]
+  - Übung durchführen [...]
+    - jeder startet selbst, Zeit wird gemessen
+  - Statistiken anzeigen [...]
+    - von allen teilnehmenden Personen
+    - Status "pending" für unfertige teilnehmende Personen
+  - Optionen (unfertige Teilnehmer werden aus der Session entfernt):
+    - nochmal spielen (gleicher Text, gleiche Konfig, gleiche Session)
+    - andere Übung (gleiche Session)
+    - neue Session starten
+    - Session beenden
+- an einer Sitzung teilnehmen
+  - Link eingeben
+  - warten bis Übung bereit
+  - Übung eigenständig starten -> durchführen
+  - Statistiken ...
+  - Optionen:
+    - Sitzung verlassen
