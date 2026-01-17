@@ -1,5 +1,5 @@
 # Spyter
-
+A speed typer, therefore Spyter
 
 ## Build and Run
 ### Build (Compile only)
