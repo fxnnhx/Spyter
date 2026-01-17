@@ -60,7 +60,8 @@
     - AdvanceType take(char)
     - void delete_one_char()
     - bool isFinished()
-    - ExerciseEvaluator toExerciseEvaluator()
+    - MistakeCount getMistakeCount()
+    - TextProgress getTextProgress()
 - BlockingCorrector impl Corrector
     ```java
     if isNextChar(x) {
@@ -84,18 +85,138 @@
     - attributes
         - Corrector
         - ExerciseUI (Interface)
+        - TotalTime time // if time is set, isFinished is true
     - methods
-        - void take(char)
+        - void take(char) // start time with first char
         - void delete_one_char()
         - bool isFinished()
+        - ExerciseEvaluator toExerciseEvaluator()
 - ExerciseEvaluator
     - attributes:
         - TextProgress
+        - MistakeCount
+        - TimeDiff
     - methods:
-        - fromTextProgress(TextProgress)
+        - new(TextProgress, MistakeCount, TimeDiff)
 - ExerciseRecord (JavaRecord)
     - tbd. after ExerciseEvaluator implementation
 - TextGenerator (Interface)
     - from_raw_string(String)
     - from_generator_config(TextGeneratorConfig)
+# New
 
+- UI Interface methods
+- Workflows
+- 
+
+```mermaid
+---
+title: Spyter Entity Diagram
+---
+classDiagram
+    %% Value Objects
+    class Character {
+        - char value
+        + bool isDelimiter()
+        + KeyStrokeCount getKeyStrokeCount()
+    }
+    class Word {
+        - List<Character> characters
+        + CharacterCount getCharacterCount()
+    }
+    class Text {
+        - List<Character> characters
+    }
+    class CharacterCorrectionType {
+        <<enumeration>>
+        CORRECT,
+        INCORRECT
+    }
+    class AdvanceType {
+        <<enumeration>>
+        HOLD,
+        ADVANCE_CORRECT,
+        ADVANCE_INCORRECT
+    }
+    note for TextGeneratorConfiguration "Contents to be discussed"
+    class TextGeneratorConfiguration {}
+
+    class TypedText {
+        - List<TypedCharacter> typedCharacters
+    }
+
+    class TypedCharacter {
+        - Character character
+        - CharacterCorrectionType correctionType
+    }
+
+    %% Entities
+    class InputText {
+        - List<Character> inputCharacters
+        + void add(Character char)
+    }
+    class TextProgress {
+        - Text expectedText
+        - InputText inputText
+        + ProgressType isNextChar(Character char)
+        + void advance(Character char)
+        + void deleteOneChar()
+        + bool isFinished()
+    }
+    class Corrector {
+        <<interface>>
+        + AdvanceType take(Character char)
+        + void deleteOneChar()
+        + bool isFinished()
+        + ExerciseEvaluator toExerciseEvaluator()
+        + MistakeCount getMistakeCount()
+        + Textprogress getTextProgress()
+    }
+    note for BlockingCorrector "Does not advance if Character is incorrect"
+    class BlockingCorrector {}
+    Corrector <|.. BlockingCorrector
+    note for NonBlockingCorrector "Does advance if Character is incorrect"
+    class NonBlockingCorrector {}
+    Corrector <|.. NonBlockingCorrector
+
+    class Exercise {
+        - TimeDelta timeDelta
+        + void take(Character char)
+        + void deleteOneChar()
+        + bool isFinished()
+        + ExerciseEvaluator toExerciseEvaluator()
+    }
+    Exercise "1" -- "1" Corrector: corrector
+    Exercise "1" -- "1" ExerciseUI: ui
+
+
+    class ExerciseEvaluator {
+        - TextProgress progress
+        - MistakeCount mistakeCount
+        - TimeDelta timeDelta
+        + ExerciseEvaluator new(TextProgress progress, MistakeCount mistakeCount, TimeDelta timeDelta)
+        + ExerciseResult generateExerciseResult()
+    }
+
+    class ExerciseResult {
+       <<record>> 
+    }
+
+    class TextGenerator {
+        <<interface>>
+        + Text fromRawString(String text)
+        + Text fromTextGeneratorConfiguration(TextGeneratorConfiguration configuration)
+    }
+    
+    class ExerciseUI {
+        <<interface>>
+        + void setReferenceText(Text text)
+        + void setTypedText(TypedText typedText)
+    }
+    note for Spyter "Worflows will be added here"
+    class Spyter {
+        + void main()
+        + void run(...Args args)
+        + ExerciseConfig configureExercise(...)
+    }
+```
