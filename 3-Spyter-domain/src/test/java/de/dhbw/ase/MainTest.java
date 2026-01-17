@@ -7,6 +7,6 @@ class MainTest {
 
     @Test
     void testSomething() {
-        assertTrue(true);
+        assertTrue(false);
     }
 }
