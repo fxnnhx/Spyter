@@ -38,6 +38,7 @@
     - HOLD
     - ADVANCE_CORRECT
     - ADVANCE_INCORRECT
+- TextGeneratorConfig
 
 # Entities/Aggregates
 - InputText
@@ -54,9 +55,12 @@
         - ProgressType isNextChar(char)
         - void advance(char)
         - void delete_one_char()
+        - bool isFinished()
 - Corrector (Interface)
     - AdvanceType take(char)
     - void delete_one_char()
+    - bool isFinished()
+    - ExerciseEvaluator toExerciseEvaluator()
 - BlockingCorrector impl Corrector
     ```java
     if isNextChar(x) {
@@ -76,11 +80,22 @@
         return ADVANCE_INCORRECT;
     }
     ```
-- Excercise
+- Exercise
     - attributes
         - Corrector
         - ExerciseUI (Interface)
     - methods
         - void take(char)
         - void delete_one_char()
+        - bool isFinished()
+- ExerciseEvaluator
+    - attributes:
+        - TextProgress
+    - methods:
+        - fromTextProgress(TextProgress)
+- ExerciseRecord (JavaRecord)
+    - tbd. after ExerciseEvaluator implementation
+- TextGenerator (Interface)
+    - from_raw_string(String)
+    - from_generator_config(TextGeneratorConfig)
 
