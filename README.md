@@ -1,6 +1,8 @@
 # Spyter
 A speed typer, therefore Spyter
 
+some commit
+
 ## Build and Run
 ### Build (Compile only)
 ```bash
