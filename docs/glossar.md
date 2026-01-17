@@ -17,3 +17,70 @@
 | Gastgeberperson | host | die Person, die eine Sitzung erstellt |
 | Sitzung | session | mindestens zwei teilnehmende Personen (einschließlich der Gastgeberperson) führen dieselbe Übung durch und erhalten nach Abschluss aller Teilnehmenden die Statistiken aller |
 | teilnehmende Person | participant | eine Person (ggf. die Gastgeberperson), die an einer Sitzung teilnimmt |
+
+# Value Objects
+- Zeichen
+    - bool isDelimiter()
+    - KeyStrokeCount keyStrokeCount()
+- Wort (erst für Auswertung bestimmt)
+    - CharCount charCount()
+- Text
+    - Array<Zeichen>
+- CharCount
+- KeyStrokeCount
+- WordsPerMinute/WordsPerSecond
+- CharactersPerMinute/CharactersPerSecond
+- KeyStrokePerMinute/KeyStrokePerSecond
+- CharProgressType
+    - CORRECT
+    - INCORRECT
+- AdvanceType
+    - HOLD
+    - ADVANCE_CORRECT
+    - ADVANCE_INCORRECT
+
+# Entities/Aggregates
+- InputText
+    - attributes:
+        - List<Zeichen> inputCharacters
+    - methods:
+        - void read(char)
+        - Text toText()
+- TextProgress
+    - attributes:
+        - Text expectedText
+        - InputText inputText
+    - methods:
+        - ProgressType isNextChar(char)
+        - void advance(char)
+        - void delete_one_char()
+- Corrector (Interface)
+    - AdvanceType take(char)
+    - void delete_one_char()
+- BlockingCorrector impl Corrector
+    ```java
+    if isNextChar(x) {
+        advance(H)
+        return ADVANCE_CORRECT;
+    } else {
+        return HOLD;
+    }
+    ```
+- NonBlockingCorrector impl Corrector
+    ```java
+    if isNextChar(x) {
+        advance(H)
+        return ADVANCE_CORRECT;
+    } else {
+        advance(H)
+        return ADVANCE_INCORRECT;
+    }
+    ```
+- Excercise
+    - attributes
+        - Corrector
+        - ExerciseUI (Interface)
+    - methods
+        - void take(char)
+        - void delete_one_char()
+
