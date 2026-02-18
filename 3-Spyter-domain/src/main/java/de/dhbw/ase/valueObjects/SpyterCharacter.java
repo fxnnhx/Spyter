@@ -1,6 +1,6 @@
 package de.dhbw.ase.valueObjects;
 
-import de.dhbw.ase.constants.AllowedCharacters;
+import de.dhbw.ase.constants.CharacterDomain;
 import java.util.Optional;
 
 public class SpyterCharacter {
@@ -11,7 +11,7 @@ public class SpyterCharacter {
   }
 
   public boolean isDelimiter() {
-    throw new UnsupportedOperationException();
+    return CharacterDomain.DELIMITER_CHARACTERS.contains(this.value);
   }
 
   public boolean getKeyStrokeCount(){
@@ -26,7 +26,7 @@ public class SpyterCharacter {
   }
 
   public static Optional<SpyterCharacter> tryFrom(char value) {
-    if (AllowedCharacters.DOMAIN_CHARACTERS.contains(value)) {
+    if (CharacterDomain.DOMAIN_CHARACTERS.contains(value)) {
       return Optional.of(new SpyterCharacter(value));
     } else {
       return Optional.empty();
