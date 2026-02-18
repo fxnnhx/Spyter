@@ -1,5 +1,6 @@
 package de.dhbw.ase.valueObjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SpyterText {
@@ -9,4 +10,24 @@ public class SpyterText {
         this.characters = characters;
     }
 
+    public List<SpyterWord> getWords() {
+        List<SpyterWord> words = new ArrayList<>();
+        int beginOfWord = 0, endOfWord = 0;
+
+        for (SpyterCharacter character : this.characters) {
+            endOfWord++;
+            if (character.isDelimiter()) {
+                words.add(new SpyterWord(characters.subList(beginOfWord, endOfWord)));
+                beginOfWord = endOfWord;
+            }
+        }
+
+        if (endOfWord < beginOfWord){
+            words.add(new SpyterWord(characters.subList(beginOfWord, endOfWord)));
+        }
+
+        return words;
+    }
 }
+
+// [abc a  ]
