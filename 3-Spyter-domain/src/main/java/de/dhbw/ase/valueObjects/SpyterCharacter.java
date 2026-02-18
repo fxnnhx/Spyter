@@ -4,6 +4,10 @@ import de.dhbw.ase.constants.CharacterDomain;
 import java.util.Optional;
 
 public class SpyterCharacter {
+  public char getValue() {
+    return value;
+  }
+
   private final char value;
 
   private SpyterCharacter(char value) {
