@@ -13,9 +13,12 @@ class SpyterTextTest {
     @Test
     void getWords() {
         String testString = "ab cd";
-        SpyterWord ab_word = List.of("ab ".toCharArray(), "ab".toCharArray()).stream()
         List<SpyterWord> expectedWords = List.of(
-
+                new SpyterWord(List.of(new SpyterCharacter('a'), new SpyterCharacter('b'), new SpyterCharacter(' '))),
+                new SpyterWord(List.of(new SpyterCharacter('c'), new SpyterCharacter('d')))
         );
+        SpyterText text = new SpyterText(testString);
+
+        text.getWords().equals(expectedWords);
     }
 }
