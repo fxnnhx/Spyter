@@ -15,11 +15,11 @@ public class SpyterCharacter {
   }
 
   public boolean isDelimiter() {
-    return CharacterDomain.DELIMITER_CHARACTERS.contains(this.value);
+    return CharacterDomain.isDelimiter(this.value);
   }
 
-  public boolean getKeyStrokeCount(){
-    throw new UnsupportedOperationException();
+  public KeyStrokeCount getKeyStrokeCount(){
+    return CharacterDomain.keyStrokeOfCharacter(this);
   }
 
   @Override
@@ -30,7 +30,7 @@ public class SpyterCharacter {
   }
 
   public static Optional<SpyterCharacter> tryFrom(char value) {
-    if (CharacterDomain.DOMAIN_CHARACTERS.contains(value)) {
+    if (CharacterDomain.isDomainCharacter(value)) {
       return Optional.of(new SpyterCharacter(value));
     } else {
       return Optional.empty();
