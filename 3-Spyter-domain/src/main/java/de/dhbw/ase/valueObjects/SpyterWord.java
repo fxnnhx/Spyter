@@ -1,6 +1,7 @@
 package de.dhbw.ase.valueObjects;
 
 import java.util.List;
+import java.util.Objects;
 
 public class SpyterWord {
     private final List<SpyterCharacter> characters;
