@@ -19,4 +19,14 @@ class SpyterTextTest {
         );
         assertTrue(text.getWords().equals(expectedWords));
     }
+
+    @Test
+    void createFromString() {
+        SpyterText text = new SpyterText("ab");
+        List<SpyterCharacter> expectedCharacters = List.of(
+                SpyterCharacter.tryFrom('a').get(),
+                SpyterCharacter.tryFrom('b').get()
+        );
+        assertTrue(text.getCharacters().equals(expectedCharacters));
+    }
 }
