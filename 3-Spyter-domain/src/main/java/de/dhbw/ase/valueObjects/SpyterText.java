@@ -22,7 +22,7 @@ public class SpyterText {
             }
         }
 
-        if (endOfWord < beginOfWord){
+        if (beginOfWord < endOfWord){
             words.add(new SpyterWord(characters.subList(beginOfWord, endOfWord)));
         }
 
