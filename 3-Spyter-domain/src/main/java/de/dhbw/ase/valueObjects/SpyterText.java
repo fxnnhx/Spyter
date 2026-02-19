@@ -36,6 +36,8 @@ public class SpyterText {
 
         return words;
     }
-}
 
-// [abc a  ]
+    public List<SpyterCharacter> getCharacters() {
+        return characters;
+    }
+}
