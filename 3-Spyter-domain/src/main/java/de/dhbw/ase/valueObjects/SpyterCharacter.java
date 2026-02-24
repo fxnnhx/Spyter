@@ -4,9 +4,6 @@ import de.dhbw.ase.constants.CharacterDomain;
 import java.util.Optional;
 
 public class SpyterCharacter {
-  public char getValue() {
-    return value;
-  }
 
   private final char value;
 
@@ -35,5 +32,9 @@ public class SpyterCharacter {
     } else {
       return Optional.empty();
     }
+  }
+
+  public char getValue() {
+    return value;
   }
 }
