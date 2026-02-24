@@ -1,18 +1,33 @@
 package de.dhbw.ase.entities;
 
+import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.ExerciseResult;
 import de.dhbw.ase.valueObjects.MistakeCount;
-import de.dhbw.ase.valueObjects.TimeDelta;
+
+import java.time.Duration;
 
 public class ExerciseEvaluator {
+    private final TypedText typedText;
     private final MistakeCount mistakeCount;
-    private final TimeDelta timeDelta;
+    private final Duration duration;
 
-    public ExerciseEvaluator(MistakeCount mistakeCount, TimeDelta timeDelta) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public ExerciseEvaluator(TypedText typedText, MistakeCount mistakeCount, Duration duration) {
+        this.typedText = typedText;
+        this.mistakeCount = mistakeCount;
+        this.duration = duration;
     }
 
     public ExerciseResult generateExerciseResult() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return new ExerciseResult(wordsPerSecond(), charactersPerSecond(), (int) duration.getSeconds(), mistakeCount.getValue());
+    }
+
+    private double charactersPerSecond() {
+        long correctCharacters = typedText.getCorrectCharacterCount();
+        return (double) correctCharacters / this.duration.getSeconds();
+    }
+
+    private double wordsPerSecond() {
+        long correctWords = typedText.getCorrectWordCount();
+        return (double) correctWords / this.duration.getSeconds();
     }
 }
