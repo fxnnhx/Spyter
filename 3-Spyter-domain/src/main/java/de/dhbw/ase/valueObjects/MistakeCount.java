@@ -7,14 +7,16 @@ public class MistakeCount {
     }
 
     public void addMistake() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        count++;
     }
 
     public void removeMistake() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        if (count > 0) {
+            count--;
+        }
     }
 
     public int getValue() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return this.count;
     }
 }
