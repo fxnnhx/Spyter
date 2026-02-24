@@ -17,16 +17,22 @@ public class ExerciseEvaluator {
     }
 
     public ExerciseResult generateExerciseResult() {
-        return new ExerciseResult(wordsPerSecond(), charactersPerSecond(), (int) duration.getSeconds(), mistakeCount.getValue());
+        return new ExerciseResult(charactersPerSecond(), wordsPerSecond(), (int) duration.getSeconds(), mistakeCount.getValue());
     }
 
     private double charactersPerSecond() {
         long correctCharacters = typedText.getCorrectCharacterCount();
+        if (correctCharacters == 0) {
+            return 0.0;
+        }
         return (double) correctCharacters / this.duration.getSeconds();
     }
 
     private double wordsPerSecond() {
         long correctWords = typedText.getCorrectWordCount();
+        if (correctWords == 0) {
+            return 0.0;
+        }
         return (double) correctWords / this.duration.getSeconds();
     }
 }
