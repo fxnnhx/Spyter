@@ -1,6 +1,5 @@
 package de.dhbw.ase.entities;
 
-import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.ExerciseResult;
 import de.dhbw.ase.valueObjects.MistakeCount;
 
