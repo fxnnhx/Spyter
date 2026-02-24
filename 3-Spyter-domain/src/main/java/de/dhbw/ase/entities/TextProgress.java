@@ -3,28 +3,48 @@ package de.dhbw.ase.entities;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 import de.dhbw.ase.valueObjects.SpyterText;
+import de.dhbw.ase.valueObjects.TypedCharacter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TextProgress {
     private final SpyterText text;
-    private final TypedText typedText;
+    private final List<CharacterCorrectionType> characterCorrections;
+    private int progressIndex = 0;
 
     public TextProgress(SpyterText text) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        this.text = text;
+        this.characterCorrections = new ArrayList<>(text.length());
     }
 
     public void advance(CharacterCorrectionType correctionType) {
-       throw new UnsupportedOperationException("Not yet implemented");
+        assert !isFinished();
+        this.characterCorrections.add(correctionType);
+        progressIndex++;
     }
 
-    public boolean isNextChar(SpyterCharacter character){
-        throw new UnsupportedOperationException("Not yet implemented");
+    public boolean isNextChar(SpyterCharacter character) {
+        assert !isFinished();
+        return this.text.characterAt(progressIndex) == character;
     }
 
-    public void remoteLastCharacter() {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public void removeLastChar() {
+        if (progressIndex > 0) {
+            this.characterCorrections.removeLast();
+            progressIndex--;
+        }
     }
 
     public boolean isFinished() {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return this.progressIndex >= text.length();
+    }
+
+    public TypedText getTypedText() {
+        TypedText typedText = new TypedText(this.characterCorrections.size());
+        for (int i = 0; i < this.characterCorrections.size(); i++) {
+            typedText.push(new TypedCharacter(this.text.characterAt(i), characterCorrections.get(i)));
+        }
+        return typedText;
     }
 }
