@@ -3,7 +3,6 @@ package de.dhbw.ase.entities;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 import de.dhbw.ase.valueObjects.SpyterText;
-import de.dhbw.ase.valueObjects.TypedCharacter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +40,6 @@ public class TextProgress {
     }
 
     public TypedText getTypedText() {
-        TypedText typedText = new TypedText(this.characterCorrections.size());
-        for (int i = 0; i < this.characterCorrections.size(); i++) {
-            typedText.push(new TypedCharacter(this.text.characterAt(i), characterCorrections.get(i)));
-        }
-        return typedText;
+        return new TypedText(this.text, this.characterCorrections);
     }
 }
