@@ -30,7 +30,7 @@ public class SpyterText {
             }
         }
 
-        if (beginOfWord < endOfWord){
+        if (beginOfWord < endOfWord) {
             words.add(new SpyterWord(characters.subList(beginOfWord, endOfWord)));
         }
 
@@ -39,5 +39,15 @@ public class SpyterText {
 
     public List<SpyterCharacter> getCharacters() {
         return characters;
+    }
+
+    public int length() {
+        return this.characters.size();
+    }
+
+    public SpyterCharacter characterAt(int index) {
+        assert index >= 0;
+        assert index < this.characters.size();
+        return this.characters.get(index);
     }
 }
