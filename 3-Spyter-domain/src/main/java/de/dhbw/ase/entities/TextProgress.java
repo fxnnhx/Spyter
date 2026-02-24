@@ -9,8 +9,7 @@ public class TextProgress {
     private final TypedText typedText;
 
     public TextProgress(SpyterText text) {
-       this.text = text;
-       this.typedText = new TypedText(text.length());
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     public void advance(CharacterCorrectionType correctionType) {
