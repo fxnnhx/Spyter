@@ -25,7 +25,7 @@ public class TextProgress {
 
     public boolean isNextChar(SpyterCharacter character) {
         assert !isFinished();
-        return this.text.characterAt(progressIndex) == character;
+        return this.text.characterAt(progressIndex).equals(character);
     }
 
     public void removeLastChar() {
