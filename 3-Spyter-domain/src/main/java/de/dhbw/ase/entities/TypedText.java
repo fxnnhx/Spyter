@@ -1,28 +1,28 @@
 package de.dhbw.ase.entities;
 
-import de.dhbw.ase.valueObjects.TypedCharacter;
+import de.dhbw.ase.valueObjects.CharacterCorrectionType;
+import de.dhbw.ase.valueObjects.SpyterText;
+import de.dhbw.ase.valueObjects.SpyterWord;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TypedText {
-    private final List<TypedCharacter> typedCharacters;
+public record TypedText(SpyterText text, List<CharacterCorrectionType> characterCorrections) {
 
-    public TypedText(int size) {
-        this.typedCharacters = new ArrayList<>(size);
+    public long getCorrectCharacterCount() {
+        return this.characterCorrections.stream().filter((correctionType -> correctionType == CharacterCorrectionType.CORRECT)).count();
     }
 
-    public void push(TypedCharacter typedCharacter) {
-        this.typedCharacters.add(typedCharacter);
-    }
-
-    public void pop() {
-        if (!this.typedCharacters.isEmpty()) {
-            this.typedCharacters.removeLast();
+    public long getCorrectWordCount() {
+        int correctWordCount = 0;
+        int characterIndex = 0;
+        for (SpyterWord word : this.text.getWords()) {
+            int wordLength = word.getCharacterCount();
+            boolean wordIsCorrect = this.characterCorrections.subList(characterIndex, characterIndex + wordLength).stream().allMatch(correctionType -> correctionType == CharacterCorrectionType.CORRECT);
+            if (wordIsCorrect) {
+                correctWordCount++;
+            }
+            characterIndex += wordLength;
         }
-    }
-
-    public int length() {
-        return this.typedCharacters.size();
+        return correctWordCount;
     }
 }
