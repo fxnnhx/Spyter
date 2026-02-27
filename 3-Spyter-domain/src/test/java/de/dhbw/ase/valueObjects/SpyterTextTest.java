@@ -29,6 +29,14 @@ class SpyterTextTest {
         assert(text.getCharacters().equals(expectedCharacters));
     }
 
+    @Test
+    void getCharacters() {
+        SpyterText text = new SpyterText(new MockCharacterDomain(), "ab");
+        assert text.getCharacters().size() == 2;
+        assert text.getCharacters().get(0).getValue() == 'a';
+        assert text.getCharacters().get(1).getValue() == 'b';
+    }
+
     class MockCharacterDomain implements CharacterDomain {
 
         @Override
