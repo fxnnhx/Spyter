@@ -1,5 +1,7 @@
 package de.dhbw.ase.valueObjects;
 
+import de.dhbw.ase.constants.CharacterDomain;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,10 +12,10 @@ public class SpyterText {
         this.characters = characters;
     }
 
-    public SpyterText(String text) {
+    public SpyterText(CharacterDomain domain, String text) {
         List<SpyterCharacter> spyterCharacters = new ArrayList<>();
         for (char c : text.toCharArray()) {
-            SpyterCharacter.tryFrom(c).ifPresent(spyterCharacters::add);
+            SpyterCharacter.tryFrom(domain, c).ifPresent(spyterCharacters::add);
         }
         this.characters = spyterCharacters;
     }
