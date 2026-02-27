@@ -1,5 +1,6 @@
 package de.dhbw.ase.constants;
 import de.dhbw.ase.valueObjects.KeyStrokeCount;
+import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +16,10 @@ public final class CharacterDomainImpl implements CharacterDomain {
 
     public boolean isDomainCharacter(char character) {
         return CharacterDomainImpl.characterToKeyStrokeCount.containsKey(character);
+    }
+
+    public KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
+        return CharacterDomainImpl.characterToKeyStrokeCount.get(character.getValue());
     }
 
     private static Map<Character, KeyStrokeCount> buildCharacterToKeyStrokeCount() {

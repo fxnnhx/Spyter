@@ -5,10 +5,6 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public interface CharacterDomain {
     boolean isDelimiter(char character);
-
     boolean isDomainCharacter(char character);
-
-    static KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
-        return CharacterDomain.characterToKeyStrokeCount.get(character.getValue());
-    }
+    KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character);
 }
