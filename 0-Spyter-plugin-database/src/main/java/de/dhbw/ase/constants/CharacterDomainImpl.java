@@ -9,6 +9,10 @@ public final class CharacterDomainImpl implements CharacterDomain {
     private static final Map<Character, KeyStrokeCount> characterToKeyStrokeCount = buildCharacterToKeyStrokeCount();
     private static final Set<Character> delimiters = Set.of(' ', '\n');
 
+    public boolean isDelimiter(char character) {
+        return CharacterDomainImpl.delimiters.contains(character);
+    }
+
     private static Map<Character, KeyStrokeCount> buildCharacterToKeyStrokeCount() {
         Map<Character, KeyStrokeCount> map = new HashMap<>();
         final KeyStrokeCount ONE_KEY_STROKE = new KeyStrokeCount(1);

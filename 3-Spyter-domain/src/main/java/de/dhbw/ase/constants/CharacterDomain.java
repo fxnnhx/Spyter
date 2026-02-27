@@ -4,9 +4,7 @@ import de.dhbw.ase.valueObjects.KeyStrokeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public interface CharacterDomain {
-    static boolean isDelimiter(char character) {
-        return CharacterDomain.delimiters.contains(character);
-    }
+    boolean isDelimiter(char character);
 
     static boolean isDomainCharacter(char character) {
         return CharacterDomain.characterToKeyStrokeCount.containsKey(character);
