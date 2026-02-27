@@ -13,6 +13,10 @@ public final class CharacterDomainImpl implements CharacterDomain {
         return CharacterDomainImpl.delimiters.contains(character);
     }
 
+    public boolean isDomainCharacter(char character) {
+        return CharacterDomainImpl.characterToKeyStrokeCount.containsKey(character);
+    }
+
     private static Map<Character, KeyStrokeCount> buildCharacterToKeyStrokeCount() {
         Map<Character, KeyStrokeCount> map = new HashMap<>();
         final KeyStrokeCount ONE_KEY_STROKE = new KeyStrokeCount(1);
