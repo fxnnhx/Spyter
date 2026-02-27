@@ -3,8 +3,6 @@ package de.dhbw.ase.valueObjects;
 import de.dhbw.ase.constants.CharacterDomain;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SpyterCharacterTest {
 
     @Test
