@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SpyterTextTest {
 
 
@@ -18,7 +16,7 @@ class SpyterTextTest {
                 new SpyterWord(List.of(characters.get(0), characters.get(1), characters.get(2))),
                 new SpyterWord(List.of(characters.get(3), characters.get(4)))
         );
-        assertTrue(text.getWords().equals(expectedWords));
+        assert(text.getWords().equals(expectedWords));
     }
 
     @Test
@@ -28,7 +26,7 @@ class SpyterTextTest {
                 SpyterCharacter.tryFrom(new MockCharacterDomain(),'a').get(),
                 SpyterCharacter.tryFrom(new MockCharacterDomain(),'b').get()
         );
-        assertTrue(text.getCharacters().equals(expectedCharacters));
+        assert(text.getCharacters().equals(expectedCharacters));
     }
 
     class MockCharacterDomain implements CharacterDomain {
