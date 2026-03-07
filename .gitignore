@@ -60,3 +60,6 @@ Desktop.ini
 !/mvnw
 !/mvnw.cmd
 !/.mvn/wrapper/
+
+# LibreOffice Lock file
+.~lock.*
