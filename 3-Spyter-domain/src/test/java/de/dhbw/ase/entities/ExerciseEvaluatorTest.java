@@ -101,7 +101,7 @@ class ExerciseEvaluatorTest {
 
         @Override
         public boolean isDelimiter(char character) {
-            throw new UnsupportedOperationException("Not implemented");
+            return  character == ' ';
         }
 
         @Override
