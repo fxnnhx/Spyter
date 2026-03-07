@@ -1,0 +1,12 @@
+INDEX VERSION 1.134+/Users/i589622/home/projects/Spyter/.jdtls-workspace/.metadata/.plugins/org.eclipse.jdt.core
+2020454932.index
+1911461065.index
+3203433577.index
+208938647.index
+3842426239.index
+141595963.index
+1145584031.index
+2974160555.index
+3756773175.index
+3970710217.index
+1865797976.index
