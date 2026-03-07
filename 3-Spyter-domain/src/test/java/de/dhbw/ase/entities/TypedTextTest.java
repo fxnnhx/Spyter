@@ -1,6 +1,9 @@
 package de.dhbw.ase.entities;
 
+import de.dhbw.ase.constants.CharacterDomain;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
+import de.dhbw.ase.valueObjects.KeyStrokeCount;
+import de.dhbw.ase.valueObjects.SpyterCharacter;
 import de.dhbw.ase.valueObjects.SpyterText;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +15,7 @@ class TypedTextTest {
 
     @Test
     void getCorrectCharacterCount() {
-        SpyterText text = new SpyterText("Hello");
+        SpyterText text = new SpyterText(new MockCharacterDomain(), "Hello");
         List<CharacterCorrectionType> corrections = List.of(
                 CharacterCorrectionType.CORRECT,
                 CharacterCorrectionType.CORRECT,
@@ -26,7 +29,7 @@ class TypedTextTest {
 
     @Test
     void getCorrectWordCount() {
-        SpyterText text = new SpyterText("Hello world");
+        SpyterText text = new SpyterText(new MockCharacterDomain(), "Hello world");
         List<CharacterCorrectionType> corrections = List.of(
                 CharacterCorrectionType.CORRECT,
                 CharacterCorrectionType.CORRECT,
@@ -46,7 +49,7 @@ class TypedTextTest {
 
     @Test
     void text() {
-        SpyterText text = new SpyterText("Sample text");
+        SpyterText text = new SpyterText(new MockCharacterDomain(), "Sample text");
         List<CharacterCorrectionType> corrections = List.of(
                 CharacterCorrectionType.CORRECT,
                 CharacterCorrectionType.CORRECT,
@@ -66,7 +69,7 @@ class TypedTextTest {
 
     @Test
     void characterCorrections() {
-        SpyterText text = new SpyterText("Typing");
+        SpyterText text = new SpyterText(new MockCharacterDomain(), "Typing");
         List<CharacterCorrectionType> corrections = List.of(
                 CharacterCorrectionType.CORRECT,
                 CharacterCorrectionType.INCORRECT,
@@ -77,5 +80,22 @@ class TypedTextTest {
         );
         TypedText typedText = new TypedText(text, corrections);
         assertEquals(corrections, typedText.characterCorrections());
+    }
+    class MockCharacterDomain implements CharacterDomain {
+
+        @Override
+        public boolean isDelimiter(char character) {
+            return character == ' ';
+        }
+
+        @Override
+        public boolean isDomainCharacter(char character) {
+            return true;
+        }
+
+        @Override
+        public KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
+            throw new UnsupportedOperationException("Not implemented");
+        }
     }
 }
