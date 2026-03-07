@@ -39,7 +39,8 @@ class TextProgressTest {
         SpyterText text = new SpyterText("ab");
         TextProgress progress = new TextProgress(text);
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
-        assertedAdvanceWithInputCheck(progress, 'b', CharacterCorrectionType.CORRECT);
+        assertFalse(progress.isNextChar(assertedCharConversion('a')));
+        progress.advance(CharacterCorrectionType.INCORRECT);
 
         TypedText typedText = progress.getTypedText();
         assertEquals(2, typedText.characterCorrections().size());
