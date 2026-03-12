@@ -1,9 +1,7 @@
 package de.dhbw.ase.entities;
 
-import de.dhbw.ase.valueObjects.CharacterCorrectionType;
-import de.dhbw.ase.valueObjects.ExerciseResult;
-import de.dhbw.ase.valueObjects.MistakeCount;
-import de.dhbw.ase.valueObjects.SpyterText;
+import de.dhbw.ase.constants.CharacterDomain;
+import de.dhbw.ase.valueObjects.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -17,7 +15,7 @@ class ExerciseEvaluatorTest {
 
     TypedText mockTypedText(String text, List<CharacterCorrectionType> correctionTypes) {
         assert text.length() == correctionTypes.size();
-        SpyterText spyterText = new SpyterText(text);
+        SpyterText spyterText = new SpyterText(new MockCharacterDomain(), text);
         return new TypedText(spyterText, correctionTypes);
     }
 
@@ -98,5 +96,22 @@ class ExerciseEvaluatorTest {
         assertEquals((double)  (wordCount - 1) / 10, result.wordsPerSecond());
         assertEquals(mistakes, result.mistakes());
         assertEquals((double) (text.length() - uncorrectedMistakes) / 10, result.charactersPerSecond());
+    }
+    class MockCharacterDomain implements CharacterDomain {
+
+        @Override
+        public boolean isDelimiter(char character) {
+            return  character == ' ';
+        }
+
+        @Override
+        public boolean isDomainCharacter(char character) {
+            return true;
+        }
+
+        @Override
+        public KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
+            throw new UnsupportedOperationException("Not implemented");
+        }
     }
 }

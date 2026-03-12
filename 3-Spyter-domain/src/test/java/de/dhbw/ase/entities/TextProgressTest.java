@@ -1,15 +1,19 @@
 package de.dhbw.ase.entities;
 
+import de.dhbw.ase.constants.CharacterDomain;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
+import de.dhbw.ase.valueObjects.KeyStrokeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 import de.dhbw.ase.valueObjects.SpyterText;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TextProgressTest {
+    MockCharacterDomain mockCharacterDomain = new MockCharacterDomain();
 
     void assertedAdvanceWithInputCheck(TextProgress progress, char character, CharacterCorrectionType correctionType) {
         assertTrue(progress.isNextChar(assertedCharConversion(character)));
@@ -17,12 +21,12 @@ class TextProgressTest {
     }
 
     SpyterCharacter assertedCharConversion(char character) {
-        return SpyterCharacter.tryFrom(character).orElseThrow();
+        return SpyterCharacter.tryFrom(mockCharacterDomain, character).orElseThrow();
     }
 
     @Test
     void advance_shouldIncrementProgressIndex() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         assertFalse(progress.isFinished());
@@ -36,7 +40,7 @@ class TextProgressTest {
 
     @Test
     void advance_shouldRecordCorrectionType() {
-        SpyterText text = new SpyterText("ab");
+        SpyterText text = new SpyterText(mockCharacterDomain, "ab");
         TextProgress progress = new TextProgress(text);
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
         assertFalse(progress.isNextChar(assertedCharConversion('a')));
@@ -50,7 +54,7 @@ class TextProgressTest {
 
     @Test
     void isNextChar_shouldReturnTrueForMatchingCharacter() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         assertTrue(progress.isNextChar(assertedCharConversion('a')));
@@ -63,7 +67,7 @@ class TextProgressTest {
 
     @Test
     void isNextChar_shouldReturnCorrectCharacterAfterAdvance() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
@@ -75,7 +79,7 @@ class TextProgressTest {
 
     @Test
     void removeLastChar_shouldDecrementProgressIndex() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
@@ -87,7 +91,7 @@ class TextProgressTest {
 
     @Test
     void removeLastChar_shouldRemoveCorrectionFromList() {
-        SpyterText text = new SpyterText("ab");
+        SpyterText text = new SpyterText(mockCharacterDomain, "ab");
         TextProgress progress = new TextProgress(text);
 
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
@@ -102,7 +106,7 @@ class TextProgressTest {
 
     @Test
     void removeLastChar_shouldDoNothingAtBeginning() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         progress.removeLastChar();
@@ -112,7 +116,7 @@ class TextProgressTest {
 
     @Test
     void isFinished_shouldReturnFalseForNewProgress() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         assertFalse(progress.isFinished());
@@ -120,7 +124,7 @@ class TextProgressTest {
 
     @Test
     void isFinished_shouldReturnTrueWhenAllCharactersTyped() {
-        SpyterText text = new SpyterText("ab");
+        SpyterText text = new SpyterText(mockCharacterDomain, "ab");
         TextProgress progress = new TextProgress(text);
 
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
@@ -132,7 +136,7 @@ class TextProgressTest {
 
     @Test
     void isFinished_shouldReturnFalseAfterRemoveLastChar() {
-        SpyterText text = new SpyterText("a");
+        SpyterText text = new SpyterText(mockCharacterDomain, "a");
         TextProgress progress = new TextProgress(text);
 
         assertedAdvanceWithInputCheck(progress, 'a', CharacterCorrectionType.CORRECT);
@@ -144,7 +148,7 @@ class TextProgressTest {
 
     @Test
     void getTypedText_shouldReturnCorrectText() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         progress.advance(CharacterCorrectionType.CORRECT);
@@ -157,11 +161,29 @@ class TextProgressTest {
 
     @Test
     void getTypedText_shouldReturnEmptyCorrectionsForNewProgress() {
-        SpyterText text = new SpyterText("abc");
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);
 
         TypedText typedText = progress.getTypedText();
         assertEquals(text, typedText.text());
         assertTrue(typedText.characterCorrections().isEmpty());
+    }
+
+    class MockCharacterDomain implements CharacterDomain {
+
+        @Override
+        public boolean isDelimiter(char character) {
+            return  character == ' ';
+        }
+
+        @Override
+        public boolean isDomainCharacter(char character) {
+            return true;
+        }
+
+        @Override
+        public KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
+            throw new UnsupportedOperationException("Not implemented");
+        }
     }
 }
