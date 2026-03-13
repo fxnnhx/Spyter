@@ -28,8 +28,7 @@ public class RunExercise {
         if (interrupted) {
             return Optional.empty();
         }else {
-            return Optional.empty();
-            //return this.exercise.toEvaluator();
+            return Optional.of(this.exercise.toEvaluator());
         }
     }
 
