@@ -2,8 +2,6 @@ package de.dhbw.ase;
 
 import de.dhbw.ase.entities.Exercise;
 import de.dhbw.ase.entities.ExerciseEvaluator;
-import de.dhbw.ase.entities.TextProgress;
-import de.dhbw.ase.valueObjects.AdvanceType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 import java.util.Optional;
@@ -42,9 +40,5 @@ public class RunExercise {
 
     private void actOnRemovedChar(UIHandle ui) {
         ui.removeChar();
-    }
-
-    private void handleExit(UIHandle ui) {
-
     }
 }
