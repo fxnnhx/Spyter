@@ -3,6 +3,7 @@ package de.dhbw.ase;
 import de.dhbw.ase.entities.Exercise;
 import de.dhbw.ase.entities.ExerciseEvaluator;
 import de.dhbw.ase.entities.TextProgress;
+import de.dhbw.ase.valueObjects.AdvanceType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 import java.util.Optional;
@@ -15,22 +16,27 @@ public class RunExercise {
     }
 
     public Optional<ExerciseEvaluator> run(UIHandle ui) {
-        while (!exercise.isFinished()) {
+        boolean interrupted = false;
+        while ( !(exercise.isFinished() || interrupted) ) {
             switch (ui.getNextAction()){
-                case Action.Exit () -> handleExit(ui);
-                case Action.RemovedChar () -> handleRemovedChar(ui);
-                case Action.TypedChar typedChar -> handleTypedChar(ui, typedChar.getCharacter());
+                case Action.Exit _ -> interrupted = true;
+                case Action.RemovedChar _ -> actOnRemovedChar(ui);
+                case Action.TypedChar typedChar -> actOnTypedChar(ui, typedChar.getCharacter());
             }
         }
 
-        return Optional.empty();
-        //return this.exercise.toEvaluator();
+        if (interrupted) {
+            return Optional.empty();
+        }else {
+            return Optional.empty();
+            //return this.exercise.toEvaluator();
+        }
     }
 
-    private void handleTypedChar(UIHandle ui, SpyterCharacter character) {
+    private void actOnTypedChar(UIHandle ui, SpyterCharacter character) {
     }
 
-    private void handleRemovedChar(UIHandle ui) {
+    private void actOnRemovedChar(UIHandle ui) {
     }
 
     private void handleExit(UIHandle ui) {
