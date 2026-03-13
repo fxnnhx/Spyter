@@ -5,7 +5,7 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 public interface UIHandle {
     Action getNextAction();
 
-    void hold(SpyterCharacter character);
+    void hold_incorrect(SpyterCharacter character);
 
     void typeCorrectCharacter(SpyterCharacter character);
 
