@@ -33,8 +33,8 @@ public class RunExercise {
     private void actOnTypedChar(UIHandle ui, SpyterCharacter character) {
         switch (exercise.takeCharacter(character)) {
             case HOLD -> ui.hold_incorrect(character);
-            case ADVANCE_CORRECT -> ui.typeCorrectCharacter(character);
-            case ADVANCE_INCORRECT -> ui.typeIncorrectCharacter(character);
+            case ADVANCE_CORRECT -> ui.appendCorrectCharacter(character);
+            case ADVANCE_INCORRECT -> ui.appendIncorrectCharacter(character);
         }
     }
 

@@ -7,9 +7,9 @@ public interface UIHandle {
 
     void hold_incorrect(SpyterCharacter character);
 
-    void typeCorrectCharacter(SpyterCharacter character);
+    void appendCorrectCharacter(SpyterCharacter character);
 
-    void typeIncorrectCharacter(SpyterCharacter character);
+    void appendIncorrectCharacter(SpyterCharacter character);
 
     void removeChar();
 }
