@@ -1,5 +1,6 @@
 package de.dhbw.ase;
 
+import de.dhbw.ase.entities.Exercise;
 import de.dhbw.ase.entities.ExerciseEvaluator;
 import de.dhbw.ase.entities.TextProgress;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
@@ -7,9 +8,9 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 import java.util.Optional;
 
 public class RunExercise {
-    TextProgress exercise;
+    Exercise exercise;
 
-    public RunExercise(TextProgress exercise) {
+    public RunExercise(Exercise exercise) {
         this.exercise = exercise;
     }
 
