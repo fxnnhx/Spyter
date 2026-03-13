@@ -10,4 +10,6 @@ public interface UIHandle {
     void typeCorrectCharacter(SpyterCharacter character);
 
     void typeIncorrectCharacter(SpyterCharacter character);
+
+    void removeChar();
 }

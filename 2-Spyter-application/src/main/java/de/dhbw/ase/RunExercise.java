@@ -41,6 +41,7 @@ public class RunExercise {
     }
 
     private void actOnRemovedChar(UIHandle ui) {
+        ui.removeChar();
     }
 
     private void handleExit(UIHandle ui) {
