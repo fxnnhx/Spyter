@@ -14,7 +14,7 @@ public class Exercise {
     }
 
     public boolean isFinished() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return textProgress.isFinished();
     }
 
     public AdvanceType takeCharacter(SpyterCharacter character) {
