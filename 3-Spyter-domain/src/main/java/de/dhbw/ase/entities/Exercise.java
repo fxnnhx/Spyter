@@ -14,7 +14,7 @@ public class Exercise {
     }
 
     public boolean isFinished() {
-        return corrector.isFinished();
+        return textProgress.isFinished();
     }
 
     public AdvanceType takeCharacter(SpyterCharacter character) {
