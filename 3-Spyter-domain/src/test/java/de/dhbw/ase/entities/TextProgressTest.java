@@ -53,6 +53,23 @@ class TextProgressTest {
     }
 
     @Test
+    void getNextChar() {
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
+        TextProgress progress = new TextProgress(text);
+
+        assert(progress.getNextCharacter().equals(assertedCharConversion('a')));
+    }
+
+    @Test
+    void getNextChar_afterAdvance() {
+        SpyterText text = new SpyterText(mockCharacterDomain, "abc");
+        TextProgress progress = new TextProgress(text);
+
+        progress.advance(CharacterCorrectionType.CORRECT);
+        assert(progress.getNextCharacter().equals(assertedCharConversion('b')));
+    }
+
+    @Test
     void isNextChar_shouldReturnTrueForMatchingCharacter() {
         SpyterText text = new SpyterText(mockCharacterDomain, "abc");
         TextProgress progress = new TextProgress(text);

@@ -1,24 +1,42 @@
 package de.dhbw.ase.entities;
 
 import de.dhbw.ase.valueObjects.AdvanceType;
+import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
+
+import java.time.Duration;
 
 public class Exercise {
 
+    private final Corrector corrector;
+    private final TextProgress textProgress;
+
+    public Exercise(Corrector corrector, TextProgress textProgress) {
+        this.corrector = corrector;
+        this.textProgress = textProgress;
+    }
+
     public boolean isFinished() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        return textProgress.isFinished();
     }
 
     public AdvanceType takeCharacter(SpyterCharacter character) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        AdvanceType currentAdvance = corrector.AdvanceBehavior(textProgress.getNextCharacter(), character);
+        switch (currentAdvance) {
+            case HOLD -> {}
+            case ADVANCE_CORRECT -> {textProgress.advance(CharacterCorrectionType.CORRECT);}
+            case ADVANCE_INCORRECT -> {textProgress.advance(CharacterCorrectionType.INCORRECT);}
+            default -> {throw new IllegalStateException("Unexpected value: " + currentAdvance);}
+        }
+        return currentAdvance;
     }
 
     public void deleteLastCharacter() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        textProgress.removeLastChar();
     }
 
-    public ExerciseEvaluator toEvaluator() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public ExerciseEvaluator toEvaluator(Duration duration) {
+        return new ExerciseEvaluator(textProgress.getTypedText(), corrector.getMistakeCount(), duration);
     }
 
 }
