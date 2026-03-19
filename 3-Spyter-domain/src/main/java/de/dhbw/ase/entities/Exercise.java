@@ -1,6 +1,7 @@
 package de.dhbw.ase.entities;
 
 import de.dhbw.ase.valueObjects.AdvanceType;
+import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public class Exercise {
@@ -18,7 +19,14 @@ public class Exercise {
     }
 
     public AdvanceType takeCharacter(SpyterCharacter character) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        AdvanceType currentAdvance = corrector.AdvanceBehavior(textProgress.getNextCharacter(), character);
+        switch (currentAdvance) {
+            case HOLD -> {}
+            case ADVANCE_CORRECT -> {textProgress.advance(CharacterCorrectionType.CORRECT);}
+            case ADVANCE_INCORRECT -> {textProgress.advance(CharacterCorrectionType.INCORRECT);}
+            default -> {throw new IllegalStateException("Unexpected value: " + currentAdvance);}
+        }
+        return currentAdvance;
     }
 
     public void deleteLastCharacter() {
