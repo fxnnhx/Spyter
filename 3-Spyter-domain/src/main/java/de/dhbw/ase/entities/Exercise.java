@@ -5,6 +5,14 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public class Exercise {
 
+    private final TextProgress textProgress;
+    private final Corrector corrector;
+
+    public Exercise(TextProgress textProgress, Corrector corrector) {
+        this.textProgress = textProgress;
+        this.corrector = corrector;
+    }
+
     public boolean isFinished() {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
