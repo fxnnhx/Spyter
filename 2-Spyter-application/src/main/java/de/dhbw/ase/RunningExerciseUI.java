@@ -2,7 +2,7 @@ package de.dhbw.ase;
 
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
-public interface UIHandle {
+public interface RunningExerciseUI {
     Action getNextAction();
 
     void hold_incorrect(SpyterCharacter character);

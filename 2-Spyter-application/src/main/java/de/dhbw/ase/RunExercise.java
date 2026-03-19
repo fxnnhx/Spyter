@@ -15,7 +15,7 @@ public class RunExercise {
         this.exercise = exercise;
     }
 
-    public Optional<ExerciseEvaluator> run(UIHandle ui) {
+    public Optional<ExerciseEvaluator> run(RunningExerciseUI ui) {
         boolean interrupted = false;
         Instant start = Instant.now();
         while ( !(exercise.isFinished() || interrupted) ) {
@@ -35,7 +35,7 @@ public class RunExercise {
         }
     }
 
-    private void actOnTypedChar(UIHandle ui, SpyterCharacter character) {
+    private void actOnTypedChar(RunningExerciseUI ui, SpyterCharacter character) {
         switch (exercise.takeCharacter(character)) {
             case HOLD -> ui.hold_incorrect(character);
             case ADVANCE_CORRECT -> ui.appendCorrectCharacter(character);
@@ -43,7 +43,7 @@ public class RunExercise {
         }
     }
 
-    private void actOnRemovedChar(UIHandle ui) {
+    private void actOnRemovedChar(RunningExerciseUI ui) {
         ui.removeChar();
     }
 }
