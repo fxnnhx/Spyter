@@ -4,6 +4,8 @@ import de.dhbw.ase.entities.Exercise;
 import de.dhbw.ase.entities.ExerciseEvaluator;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Optional;
 
 public class RunExercise {
@@ -15,6 +17,7 @@ public class RunExercise {
 
     public Optional<ExerciseEvaluator> run(UIHandle ui) {
         boolean interrupted = false;
+        Instant start = Instant.now();
         while ( !(exercise.isFinished() || interrupted) ) {
             switch (ui.getNextAction()){
                 case Action.Exit _ -> interrupted = true;
@@ -23,10 +26,12 @@ public class RunExercise {
             }
         }
 
+        Instant end = Instant.now();
+
         if (interrupted) {
             return Optional.empty();
         }else {
-            return Optional.of(this.exercise.toEvaluator());
+            return Optional.of(this.exercise.toEvaluator(Duration.between(start, end)));
         }
     }
 
