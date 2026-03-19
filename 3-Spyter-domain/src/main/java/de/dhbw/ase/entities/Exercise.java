@@ -5,16 +5,14 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public class Exercise {
 
-    private final TextProgress textProgress;
     private final Corrector corrector;
 
-    public Exercise(TextProgress textProgress, Corrector corrector) {
-        this.textProgress = textProgress;
+    public Exercise(Corrector corrector) {
         this.corrector = corrector;
     }
 
     public boolean isFinished() {
-        return textProgress.isFinished();
+        return corrector.isFinished();
     }
 
     public AdvanceType takeCharacter(SpyterCharacter character) {
