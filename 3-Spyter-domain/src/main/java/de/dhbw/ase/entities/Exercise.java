@@ -30,7 +30,7 @@ public class Exercise {
     }
 
     public void deleteLastCharacter() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+        textProgress.removeLastChar();
     }
 
     public ExerciseEvaluator toEvaluator() {
