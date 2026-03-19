@@ -23,6 +23,11 @@ public class TextProgress {
         progressIndex++;
     }
 
+    public SpyterCharacter getNextCharacter() {
+        assert !isFinished();
+        return this.text.characterAt(progressIndex);
+    }
+
     public boolean isNextChar(SpyterCharacter character) {
         assert !isFinished();
         return this.text.characterAt(progressIndex).equals(character);
