@@ -6,9 +6,11 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 public class Exercise {
 
     private final Corrector corrector;
+    private final TextProgress textProgress;
 
-    public Exercise(Corrector corrector) {
+    public Exercise(Corrector corrector, TextProgress textProgress) {
         this.corrector = corrector;
+        this.textProgress = textProgress;
     }
 
     public boolean isFinished() {
