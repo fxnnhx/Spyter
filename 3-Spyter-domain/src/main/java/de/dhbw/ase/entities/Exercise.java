@@ -4,6 +4,8 @@ import de.dhbw.ase.valueObjects.AdvanceType;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
+import java.time.Duration;
+
 public class Exercise {
 
     private final Corrector corrector;
@@ -33,8 +35,8 @@ public class Exercise {
         textProgress.removeLastChar();
     }
 
-    public ExerciseEvaluator toEvaluator() {
-        throw new UnsupportedOperationException("Not implemented yet.");
+    public ExerciseEvaluator toEvaluator(Duration duration) {
+        return new ExerciseEvaluator(textProgress.getTypedText(), corrector.getMistakeCount(), duration);
     }
 
 }
