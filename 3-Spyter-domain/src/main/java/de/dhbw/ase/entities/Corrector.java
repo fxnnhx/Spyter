@@ -5,15 +5,7 @@ import de.dhbw.ase.valueObjects.MistakeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 
 public interface Corrector {
-    AdvanceType take(SpyterCharacter character);
-
-    void deleteLastCharacter();
-
-    boolean isFinished();
-
-    ExerciseEvaluator toExerciseEvaluator();
+    AdvanceType AdvanceBehavior(SpyterCharacter expected, SpyterCharacter actual);
 
     MistakeCount getMistakeCount();
-
-    TextProgress getTextProgress();
 }
