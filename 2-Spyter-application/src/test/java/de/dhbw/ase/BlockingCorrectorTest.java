@@ -7,7 +7,6 @@ import de.dhbw.ase.valueObjects.MistakeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class BlockingCorrectorTest {
 
