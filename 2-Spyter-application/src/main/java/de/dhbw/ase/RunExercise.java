@@ -20,13 +20,16 @@ public class RunExercise {
 
         ui.showText(exercise.getText());
 
+        Action currentAction = ui.getNextAction();
         Instant start = Instant.now();
+
         while ( !(exercise.isFinished() || interrupted) ) {
-            switch (ui.getNextAction()){
+            switch (currentAction){
                 case Action.Exit _ -> interrupted = true;
                 case Action.RemovedChar _ -> actOnRemovedChar(ui);
                 case Action.TypedChar typedChar -> actOnTypedChar(ui, typedChar.getCharacter());
             }
+            currentAction = ui.getNextAction();
         }
 
         Instant end = Instant.now();
