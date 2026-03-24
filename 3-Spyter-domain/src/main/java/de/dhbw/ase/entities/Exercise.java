@@ -3,6 +3,7 @@ package de.dhbw.ase.entities;
 import de.dhbw.ase.valueObjects.AdvanceType;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
+import de.dhbw.ase.valueObjects.SpyterText;
 
 import java.time.Duration;
 
@@ -14,6 +15,10 @@ public class Exercise {
     public Exercise(Corrector corrector, TextProgress textProgress) {
         this.corrector = corrector;
         this.textProgress = textProgress;
+    }
+
+    public SpyterText getText(){
+        return this.textProgress.getText();
     }
 
     public boolean isFinished() {

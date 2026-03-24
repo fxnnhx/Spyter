@@ -40,6 +40,10 @@ public class TextProgress {
         }
     }
 
+    public SpyterText getText() {
+        return this.text;
+    }
+
     public boolean isFinished() {
         return this.progressIndex >= text.length();
     }

@@ -17,6 +17,9 @@ public class RunExercise {
 
     public Optional<ExerciseEvaluator> run(RunningExerciseUI ui) {
         boolean interrupted = false;
+
+        ui.showText(exercise.getText());
+
         Instant start = Instant.now();
         while ( !(exercise.isFinished() || interrupted) ) {
             switch (ui.getNextAction()){

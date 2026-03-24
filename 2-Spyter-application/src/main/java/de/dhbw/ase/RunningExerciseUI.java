@@ -1,6 +1,7 @@
 package de.dhbw.ase;
 
 import de.dhbw.ase.valueObjects.SpyterCharacter;
+import de.dhbw.ase.valueObjects.SpyterText;
 
 public interface RunningExerciseUI {
     Action getNextAction();
@@ -12,4 +13,6 @@ public interface RunningExerciseUI {
     void appendIncorrectCharacter(SpyterCharacter character);
 
     void removeChar();
+
+    void showText(SpyterText text);
 }
