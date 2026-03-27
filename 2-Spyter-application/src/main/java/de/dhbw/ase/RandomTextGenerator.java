@@ -14,11 +14,11 @@ public class RandomTextGenerator implements TextGenerator {
     List<SpyterCharacter> delimiters;
 
     public RandomTextGenerator(SpyterText textBase, int minWordLength, int maxWordLength, int wordAmount) {
-    this.textBase = textBase.getCharacters();
-    this.minWordLength = minWordLength;
-    this.maxWordLength = maxWordLength;
-    this.wordAmount = wordAmount;
-    this.delimiters = getDelimiter(textBase);
+        this.textBase = textBase.getCharacters();
+        this.minWordLength = minWordLength;
+        this.maxWordLength = maxWordLength;
+        this.wordAmount = wordAmount;
+        this.delimiters = getDelimiter(textBase);
     }
 
     private List<SpyterCharacter> getDelimiter(SpyterText textBase) {
@@ -28,8 +28,8 @@ public class RandomTextGenerator implements TextGenerator {
     }
 
     public RandomTextGenerator(SpyterText textBase) {
-    this.textBase = textBase.getCharacters();
-    this.delimiters = getDelimiter(textBase);
+        this.textBase = textBase.getCharacters();
+        this.delimiters = getDelimiter(textBase);
     }
 
     @Override
