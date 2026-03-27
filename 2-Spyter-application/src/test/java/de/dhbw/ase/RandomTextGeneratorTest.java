@@ -8,9 +8,7 @@ import de.dhbw.ase.valueObjects.SpyterWord;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
 import java.util.OptionalInt;
-import java.util.stream.IntStream;
 
 class RandomTextGeneratorTest {
 
