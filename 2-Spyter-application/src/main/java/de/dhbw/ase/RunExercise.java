@@ -27,7 +27,7 @@ public class RunExercise {
             switch (currentAction){
                 case Action.Exit _ -> interrupted = true;
                 case Action.RemovedChar _ -> actOnRemovedChar(ui);
-                case Action.TypedChar typedChar -> actOnTypedChar(ui, typedChar.getCharacter());
+                case Action.TypedChar typedChar -> actOnTypedChar(ui, typedChar.c());
             }
             currentAction = ui.getNextAction();
         }
