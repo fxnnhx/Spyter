@@ -46,14 +46,18 @@ public class RandomTextGenerator implements TextGenerator {
     }
 
     private SpyterCharacter generateDelimiter(List<SpyterCharacter> delimiters) {
-        Collections.shuffle(delimiters);
+        List<SpyterCharacter> shuffleList = new ArrayList<>();
+        shuffleList.addAll(delimiters);
+        Collections.shuffle(shuffleList);
         return delimiters.getFirst();
     }
 
     private SpyterCharacter generateCharacter(List<SpyterCharacter> baseCharacters) {
         SpyterCharacter character;
         do {
-            Collections.shuffle(baseCharacters);
+            List<SpyterCharacter> shuffleList = new ArrayList<>();
+            shuffleList.addAll(baseCharacters);
+            Collections.shuffle(shuffleList);
             character = baseCharacters.getFirst();
         } while (character.isDelimiter());
         return character;
