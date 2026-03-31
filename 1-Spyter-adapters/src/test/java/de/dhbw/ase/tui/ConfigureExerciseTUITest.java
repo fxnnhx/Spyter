@@ -57,8 +57,6 @@ class ConfigureExerciseTUITest {
             return answer;
         }
 
-        @Override
-        public void clear() {}
     }
 
     class FakeSypterFileSystem implements SypterFileSystem {
