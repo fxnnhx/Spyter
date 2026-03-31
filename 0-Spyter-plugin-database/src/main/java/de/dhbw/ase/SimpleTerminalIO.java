@@ -37,8 +37,4 @@ public class SimpleTerminalIO implements TerminalIO {
         return input.nextLine();
     }
 
-    @Override
-    public void clear() {
-
-    }
 }
