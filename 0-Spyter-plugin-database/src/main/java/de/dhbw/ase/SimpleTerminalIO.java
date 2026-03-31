@@ -28,7 +28,7 @@ public class SimpleTerminalIO implements TerminalIO {
 
     @Override
     public String read() {
-        return "";
+        return input.nextLine();
     }
 
     @Override
