@@ -12,7 +12,10 @@ public class ShowResultsTUI implements ResultUI {
 
     @Override
     public void displayResult(ExerciseResult result) {
-
+        io.writeLine(String.format("Overall Time in Seconds: %d", result.durationInSeconds()));
+        io.writeLine(String.format("Mistakes: %d", result.mistakes()));
+        io.writeLine(String.format("Characters Per Second (cps): %.2f", result.charactersPerSecond()));
+        io.writeLine(String.format("Words Per Second (wps): %.2f", result.wordsPerSecond()));
     }
 
     @Override
