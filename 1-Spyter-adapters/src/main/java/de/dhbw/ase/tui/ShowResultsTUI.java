@@ -20,6 +20,6 @@ public class ShowResultsTUI implements ResultUI {
 
     @Override
     public void displayInterrupt() {
-
+        io.writeLine("The exercise was interrupted.");
     }
 }
