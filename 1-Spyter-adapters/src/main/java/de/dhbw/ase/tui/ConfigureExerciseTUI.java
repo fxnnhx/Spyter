@@ -3,22 +3,16 @@ package de.dhbw.ase.tui;
 import de.dhbw.ase.*;
 import de.dhbw.ase.constants.CharacterDomain;
 import de.dhbw.ase.entities.Corrector;
-import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterText;
 import de.dhbw.ase.valueObjects.TextGenerator;
-
-import java.io.File;
-import java.io.PrintStream;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class ConfigureExerciseTUI implements ConfigUIHandle {
 
     TerminalIO ioHandle;
     CharacterDomain domain;
-    FileSystem fileSystemHandle;
+    SypterFileSystem fileSystemHandle;
 
-    public ConfigureExerciseTUI(TerminalIO ioHandle, CharacterDomain domain, FileSystem fileSystemHandle) {
+    public ConfigureExerciseTUI(TerminalIO ioHandle, CharacterDomain domain, SypterFileSystem fileSystemHandle) {
         this.ioHandle = ioHandle;
         this.domain = domain;
         this.fileSystemHandle = fileSystemHandle;
