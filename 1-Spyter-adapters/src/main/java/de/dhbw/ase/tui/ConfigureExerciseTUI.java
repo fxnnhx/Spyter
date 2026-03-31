@@ -6,6 +6,8 @@ import de.dhbw.ase.entities.Corrector;
 import de.dhbw.ase.valueObjects.SpyterText;
 import de.dhbw.ase.valueObjects.TextGenerator;
 
+import java.util.Optional;
+
 public class ConfigureExerciseTUI implements ConfigUIHandle {
 
     TerminalIO ioHandle;
@@ -21,8 +23,13 @@ public class ConfigureExerciseTUI implements ConfigUIHandle {
     @Override
     public SpyterText getBaseText() {
         String textBaseFilname = ioHandle.question("Filename for Text Base: ");
-        String textBaseStr = fileSystemHandle.read(textBaseFilname);
-        return new SpyterText(domain, textBaseStr);
+        Optional<String> fileContent = fileSystemHandle.read(textBaseFilname);
+        while (fileContent.isEmpty()) {
+            ioHandle.writeLine("An Error occured while reading the File.");
+            textBaseFilname = ioHandle.question("Filename for Text Base: ");
+            fileContent = fileSystemHandle.read(textBaseFilname);
+        }
+        return new SpyterText(domain, fileContent.get());
     }
 
     @Override

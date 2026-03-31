@@ -1,5 +1,7 @@
 package de.dhbw.ase.tui;
 
+import java.util.Optional;
+
 public interface SypterFileSystem {
-    String read(String filename);
+    Optional<String> read(String filename);
 }
