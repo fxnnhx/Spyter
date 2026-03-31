@@ -17,7 +17,7 @@ public record TypedText(SpyterText text, List<CharacterCorrectionType> character
         int characterIndex = 0;
         for (SpyterWord word : this.text.getWords()) {
             int wordLength = word.getCharacterCount();
-            boolean wordIsCorrect = this.characterCorrections.subList(characterIndex, characterIndex + wordLength).stream().allMatch(correctionType -> correctionType == CharacterCorrectionType.CORRECT);
+            boolean wordIsCorrect = this.characterCorrections.subList(characterIndex, characterIndex + wordLength-1).stream().allMatch(correctionType -> correctionType == CharacterCorrectionType.CORRECT);
             if (wordIsCorrect) {
                 correctWordCount++;
             }
