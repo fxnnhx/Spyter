@@ -45,7 +45,7 @@ public class TextProgress {
     }
 
     public boolean isFinished() {
-        return this.progressIndex >= text.length();
+        return this.progressIndex >= text.length()-1;
     }
 
     public TypedText getTypedText() {
