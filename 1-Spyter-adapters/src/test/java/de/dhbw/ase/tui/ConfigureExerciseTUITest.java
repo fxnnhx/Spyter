@@ -10,6 +10,8 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 class ConfigureExerciseTUITest {
     @Test
     void getRandomGenerator() {
@@ -66,8 +68,8 @@ class ConfigureExerciseTUITest {
         }
 
         @Override
-        public String read(String filename) {
-            return content;
+        public Optional<String> read(String filename) {
+            return Optional.of(content);
         }
     }
 
