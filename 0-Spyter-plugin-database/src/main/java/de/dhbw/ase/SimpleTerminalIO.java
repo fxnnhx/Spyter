@@ -33,7 +33,8 @@ public class SimpleTerminalIO implements TerminalIO {
 
     @Override
     public String question(String question) {
-        return "";
+        output.println(question);
+        return input.nextLine();
     }
 
     @Override
