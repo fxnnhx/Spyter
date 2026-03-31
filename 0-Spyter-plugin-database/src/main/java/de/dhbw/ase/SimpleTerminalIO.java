@@ -23,7 +23,7 @@ public class SimpleTerminalIO implements TerminalIO {
 
     @Override
     public void writeLine(String text) {
-
+        output.println(text);
     }
 
     @Override
