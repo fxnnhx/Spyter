@@ -18,18 +18,14 @@ public class SypterFileSystemImpl implements SypterFileSystem {
 
     @Override
     public Optional<String> read(String filename) {
-        List<String> content;
+        List<String> content_list;
         try {
-            content = Files.readAllLines(Path.of(filename));
+            content_list = Files.readAllLines(Path.of(filename));
         } catch (IOException e) {
             return Optional.empty();
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String line : content) {
-            stringBuilder.append(line).append(linebreak);
-        }
-
-        return Optional.of(stringBuilder.toString());
+        Optional<String> content = content_list.stream().reduce((s1,s2) -> s1.concat(String.valueOf(linebreak)).concat(s2));
+        return content;
     }
 }
