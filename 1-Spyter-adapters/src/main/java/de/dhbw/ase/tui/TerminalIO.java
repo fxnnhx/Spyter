@@ -6,5 +6,4 @@ public interface TerminalIO {
     void writeLine(String text);
     String read();
     String question(String question);
-    void clear();
 }
