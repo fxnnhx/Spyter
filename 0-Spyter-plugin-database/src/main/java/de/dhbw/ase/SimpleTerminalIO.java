@@ -9,17 +9,9 @@ import java.util.Scanner;
 
 public class SimpleTerminalIO implements TerminalIO {
 
-    PrintStream output;
-    Scanner input;
+    PrintStream output = System.out;
+    Scanner input = new Scanner(System.in);
 
-    public SimpleTerminalIO(OutputStream output, InputStream input) {
-        this.output = new PrintStream(output);
-        this.input = new Scanner(input);
-    }
-
-    public SimpleTerminalIO() {
-        new SimpleTerminalIO(System.out, System.in);
-    }
 
     @Override
     public void writeLine(String text) {
