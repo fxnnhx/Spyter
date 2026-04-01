@@ -20,6 +20,9 @@ public class RandomTextGenerator implements TextGenerator {
     private List<SpyterCharacter> getDelimiter(SpyterText textBase) {
         Set<SpyterCharacter> delimiters = new HashSet<>();
         textBase.getCharacters().stream().filter(SpyterCharacter::isDelimiter).forEach(delimiters::add);
+        if (delimiters.isEmpty()) {
+            return textBase.getCharacters();
+        }
         return List.copyOf(delimiters);
     }
 
