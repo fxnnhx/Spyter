@@ -2,8 +2,6 @@ package de.dhbw.ase;
 
 import de.dhbw.ase.tui.TerminalIO;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
