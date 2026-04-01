@@ -3,22 +3,18 @@ package de.dhbw.ase.tui;
 import de.dhbw.ase.*;
 import de.dhbw.ase.constants.CharacterDomain;
 import de.dhbw.ase.entities.Corrector;
-import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.SpyterText;
 import de.dhbw.ase.valueObjects.TextGenerator;
 
-import java.io.File;
-import java.io.PrintStream;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.Optional;
 
 public class ConfigureExerciseTUI implements ConfigUIHandle {
 
     TerminalIO ioHandle;
     CharacterDomain domain;
-    FileSystem fileSystemHandle;
+    SypterFileSystem fileSystemHandle;
 
-    public ConfigureExerciseTUI(TerminalIO ioHandle, CharacterDomain domain, FileSystem fileSystemHandle) {
+    public ConfigureExerciseTUI(TerminalIO ioHandle, CharacterDomain domain, SypterFileSystem fileSystemHandle) {
         this.ioHandle = ioHandle;
         this.domain = domain;
         this.fileSystemHandle = fileSystemHandle;
@@ -27,8 +23,13 @@ public class ConfigureExerciseTUI implements ConfigUIHandle {
     @Override
     public SpyterText getBaseText() {
         String textBaseFilname = ioHandle.question("Filename for Text Base: ");
-        String textBaseStr = fileSystemHandle.read(textBaseFilname);
-        return new SpyterText(domain, textBaseStr);
+        Optional<String> fileContent = fileSystemHandle.read(textBaseFilname);
+        while (fileContent.isEmpty()) {
+            ioHandle.writeLine("An Error occured while reading the File.");
+            textBaseFilname = ioHandle.question("Filename for Text Base: ");
+            fileContent = fileSystemHandle.read(textBaseFilname);
+        }
+        return new SpyterText(domain, fileContent.get());
     }
 
     @Override

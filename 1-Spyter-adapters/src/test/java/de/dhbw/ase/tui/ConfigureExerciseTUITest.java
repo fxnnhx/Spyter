@@ -10,30 +10,30 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import javax.management.ObjectInstance;
+import java.util.Optional;
 
 class ConfigureExerciseTUITest {
     @Test
     void getRandomGenerator() {
-        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("y"), new FakeDomain(), new FakeFileSystem(""));
+        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("y"), new FakeDomain(), new FakeSypterFileSystem(""));
         Assertions.assertInstanceOf(RandomTextGenerator.class, configureExerciseTUI.getGenerator());
     }
 
     @Test
     void getSimpleGenerator() {
-        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("n"), new FakeDomain(), new FakeFileSystem(""));
+        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("n"), new FakeDomain(), new FakeSypterFileSystem(""));
         Assertions.assertInstanceOf(SimpleTextGenerator.class, configureExerciseTUI.getGenerator());
     }
 
     @Test
     void getBlockingCorrector() {
-        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("1"), new FakeDomain(), new FakeFileSystem(""));
+        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("1"), new FakeDomain(), new FakeSypterFileSystem(""));
         Assertions.assertInstanceOf(BlockingCorrector.class, configureExerciseTUI.getCorrector());
     }
 
     @Test
     void getNonBlockingCorrector() {
-        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("2"), new FakeDomain(), new FakeFileSystem(""));
+        ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("2"), new FakeDomain(), new FakeSypterFileSystem(""));
         Assertions.assertInstanceOf(NonBlockingCorrector.class, configureExerciseTUI.getCorrector());
     }
 
@@ -59,15 +59,15 @@ class ConfigureExerciseTUITest {
 
     }
 
-    class FakeFileSystem implements FileSystem {
+    class FakeSypterFileSystem implements SypterFileSystem {
         String content;
-        public FakeFileSystem(String content) {
+        public FakeSypterFileSystem(String content) {
             this.content = content;
         }
 
         @Override
-        public String read(String filename) {
-            return content;
+        public Optional<String> read(String filename) {
+            return Optional.of(content);
         }
     }
 
