@@ -24,7 +24,7 @@ public class ConfigureExerciseTUI implements ConfigUIHandle {
     public SpyterText getBaseText() {
         String textBaseFilname = ioHandle.question("Filename for Text Base: ");
         Optional<String> fileContent = fileSystemHandle.read(textBaseFilname);
-        while (fileContent.isEmpty()) {
+        while (fileContent.isEmpty() || fileContent.get().isEmpty()) {
             ioHandle.writeLine("An Error occured while reading the File.");
             textBaseFilname = ioHandle.question("Filename for Text Base: ");
             fileContent = fileSystemHandle.read(textBaseFilname);
