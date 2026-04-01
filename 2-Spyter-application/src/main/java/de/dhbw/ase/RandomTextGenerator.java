@@ -20,6 +20,9 @@ public class RandomTextGenerator implements TextGenerator {
     private List<SpyterCharacter> getDelimiter(SpyterText textBase) {
         Set<SpyterCharacter> delimiters = new HashSet<>();
         textBase.getCharacters().stream().filter(SpyterCharacter::isDelimiter).forEach(delimiters::add);
+        if (delimiters.isEmpty()) {
+            return textBase.getCharacters();
+        }
         return List.copyOf(delimiters);
     }
 
@@ -49,7 +52,7 @@ public class RandomTextGenerator implements TextGenerator {
         List<SpyterCharacter> shuffleList = new ArrayList<>();
         shuffleList.addAll(delimiters);
         Collections.shuffle(shuffleList);
-        return delimiters.getFirst();
+        return shuffleList.getFirst();
     }
 
     private SpyterCharacter generateCharacter(List<SpyterCharacter> baseCharacters) {
@@ -58,7 +61,7 @@ public class RandomTextGenerator implements TextGenerator {
             List<SpyterCharacter> shuffleList = new ArrayList<>();
             shuffleList.addAll(baseCharacters);
             Collections.shuffle(shuffleList);
-            character = baseCharacters.getFirst();
+            character = shuffleList.getFirst();
         } while (character.isDelimiter());
         return character;
     }
