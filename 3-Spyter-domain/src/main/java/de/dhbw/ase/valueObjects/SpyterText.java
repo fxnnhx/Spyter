@@ -52,4 +52,9 @@ public class SpyterText {
         assert index < this.characters.size();
         return this.characters.get(index);
     }
+
+    @Override
+    public String toString() {
+        return this.characters.stream().map(SpyterCharacter::getValue).collect(StringBuilder::new, StringBuilder::append, StringBuilder::append).toString();
+    }
 }
