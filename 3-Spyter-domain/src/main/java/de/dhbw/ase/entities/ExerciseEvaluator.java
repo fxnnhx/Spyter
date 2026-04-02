@@ -29,7 +29,7 @@ public class ExerciseEvaluator {
     }
 
     private double wordsPerSecond() {
-        long correctWords = typedText.getCorrectWordCount();
+        long correctWords = typedText.getWordCount();
         if (correctWords == 0) {
             return 0.0;
         }
