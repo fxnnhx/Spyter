@@ -12,17 +12,7 @@ public record TypedText(SpyterText text, List<CharacterCorrectionType> character
         return this.characterCorrections.stream().filter((correctionType -> correctionType == CharacterCorrectionType.CORRECT)).count();
     }
 
-    public long getCorrectWordCount() {
-        int correctWordCount = 0;
-        int characterIndex = 0;
-        for (SpyterWord word : this.text.getWords()) {
-            int wordLength = word.getCharacterCount();
-            boolean wordIsCorrect = this.characterCorrections.subList(characterIndex, characterIndex + wordLength).stream().allMatch(correctionType -> correctionType == CharacterCorrectionType.CORRECT);
-            if (wordIsCorrect) {
-                correctWordCount++;
-            }
-            characterIndex += wordLength;
-        }
-        return correctWordCount;
+    public long getWordCount() {
+        return this.text.getWords().size();
     }
 }
