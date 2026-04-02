@@ -28,7 +28,7 @@ class TypedTextTest {
     }
 
     @Test
-    void getCorrectWordCount() {
+    void getWordCount() {
         SpyterText text = new SpyterText(new MockCharacterDomain(), "Hello world");
         List<CharacterCorrectionType> corrections = List.of(
                 CharacterCorrectionType.CORRECT,
@@ -44,7 +44,7 @@ class TypedTextTest {
                 CharacterCorrectionType.CORRECT
         );
         TypedText typedText = new TypedText(text, corrections);
-        assertEquals(1, typedText.getCorrectWordCount());
+        assertEquals(2, typedText.getWordCount());
     }
 
     @Test
