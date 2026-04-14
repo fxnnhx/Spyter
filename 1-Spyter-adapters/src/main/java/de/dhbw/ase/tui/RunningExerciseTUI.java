@@ -9,7 +9,7 @@ import de.dhbw.ase.valueObjects.SpyterText;
 import java.io.IOException;
 import java.util.Optional;
 
-public class RunningExerciseTUI implements RunningExerciseUI, AutoCloseable {
+public class RunningExerciseTUI implements RunningExerciseUI {
     private final CharacterDomain domain;
     private final TUI tui;
     private int currentPosition = 0;
@@ -18,6 +18,16 @@ public class RunningExerciseTUI implements RunningExerciseUI, AutoCloseable {
     public RunningExerciseTUI(CharacterDomain domain) throws IOException {
         this.domain = domain;
         this.tui = new TUI();
+    }
+
+    @Override
+    public void start() throws IOException {
+        tui.start();
+    }
+
+    @Override
+    public void end() throws IOException {
+        tui.end();
     }
 
     @Override
@@ -99,10 +109,5 @@ public class RunningExerciseTUI implements RunningExerciseUI, AutoCloseable {
         tui.moveCursor(2, 1);
         tui.showCursor();
         tui.flush();
-    }
-
-    @Override
-    public void close() throws IOException {
-            tui.close();
     }
 }
