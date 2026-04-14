@@ -3,6 +3,7 @@ package de.dhbw.ase;
 import de.dhbw.ase.entities.Exercise;
 import de.dhbw.ase.entities.ExerciseEvaluator;
 
+import java.io.IOException;
 import java.util.Optional;
 
 public class MainWorkflow {
@@ -16,7 +17,7 @@ public class MainWorkflow {
         this.resultUI = resultUI;
     }
 
-    public void runSingleInstance() {
+    public void runSingleInstance() throws IOException {
         Exercise currentExercise = new ConfigureExercise().configure(configUI);
         Optional<ExerciseEvaluator> currentEvaluator = new RunExercise(currentExercise).run(runningExerciseUI);
         currentEvaluator.ifPresentOrElse(
