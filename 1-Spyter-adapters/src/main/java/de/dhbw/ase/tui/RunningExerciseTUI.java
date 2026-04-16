@@ -12,17 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class RunningExerciseTUI implements RunningExerciseUI {
-    private static int CHARACTERS_PER_LINE = 50;
-    private StringBuilder typedText = new StringBuilder();
-    private String targetText = "";
-    private List<Boolean> correctChars =  new ArrayList<>();
-    private int currentLine = 0;
-    private int currentCharacter = 0;
+    private static final int MAX_CHARACTERS_PER_LINE = 50;
+    private StringBuilder typedText;
+    private String targetText;
+    private List<Boolean> correctChars;
 
     private final CharacterDomain domain;
     private final TUI tui;
-    private int currentPosition = 0;
-    private boolean cursorBehindChar = false;
     private boolean lastWasHold = false;
 
     public RunningExerciseTUI(CharacterDomain domain) throws IOException {
@@ -75,15 +71,7 @@ public class RunningExerciseTUI implements RunningExerciseUI {
         this.correctChars.add(false);
         this.lastWasHold = true;
 
-        // old stuff
-
-        tui.setForegroundColor(ANSICommands.Color.RED);
-        tui.print(String.valueOf(character.getValue()));
-        tui.resetColors();
-        // Overwrite with next action
-        ANSICommands.moveLeft(1);
-        this.cursorBehindChar = true;
-        tui.flush();
+        drawTUI();
     }
 
     @Override
@@ -96,13 +84,7 @@ public class RunningExerciseTUI implements RunningExerciseUI {
         this.correctChars.add(true);
         this.lastWasHold = false;
 
-
-        // old stuff
-        tui.setForegroundColor(ANSICommands.Color.GREEN);
-        tui.print(String.valueOf(character.getValue()));
-        tui.resetColors();
-        this.cursorBehindChar = false;
-        currentPosition++;
+        drawTUI();
     }
 
     @Override
@@ -115,45 +97,65 @@ public class RunningExerciseTUI implements RunningExerciseUI {
         this.correctChars.add(false);
         this.lastWasHold = false;
 
-        // old stuff
-
-
-        tui.setForegroundColor(ANSICommands.Color.RED);
-        ANSICommands.underline();
-        tui.print(String.valueOf(character.getValue()));
-        tui.resetColors();
-        this.cursorBehindChar = false;
-        currentPosition++;
+        drawTUI();
     }
 
     @Override
     public void removeChar() {
-        if (currentPosition > 0) {
-            int nbOfCharsToDelete = (this.cursorBehindChar)? 2: 1;
-            ANSICommands.moveLeft(1);
-            tui.print(" ".repeat(nbOfCharsToDelete));
-            ANSICommands.moveLeft(nbOfCharsToDelete);
-            tui.flush();
-            currentPosition--;
+        if (!typedText.isEmpty()) {
+            this.typedText.deleteCharAt(typedText.length() - 1);
+            this.correctChars.removeLast();
+            this.lastWasHold = false;
         }
+
+        drawTUI();
     }
 
     @Override
     public void setText(SpyterText text) {
         this.targetText = text.toString();
+        this.typedText = new StringBuilder();
+        this.correctChars = new ArrayList<>();
+        this.lastWasHold = false;
+
         drawTUI();
+    }
 
-
-
-        currentPosition = 0;
+    private void drawTUI() {
         tui.clearScreen();
         tui.moveCursor(1, 1);
 
         tui.setForegroundColor(ANSICommands.Color.WHITE);
-        tui.print(text.toString());
+        int chunkStartIndex = (this.typedText.length() / MAX_CHARACTERS_PER_LINE) * MAX_CHARACTERS_PER_LINE;
+        int chunkEndIndex = Math.min(chunkStartIndex + MAX_CHARACTERS_PER_LINE, this.targetText.length());
+        String text = this.targetText.substring(chunkStartIndex, chunkEndIndex);
+        tui.print(text);
         tui.resetColors();
 
         tui.moveCursor(2, 1);
+
+        for (int i = chunkStartIndex; i < typedText.length(); i++) {
+            char c = typedText.charAt(i);
+            boolean isCorrect = correctChars.get(i);
+
+            if (isCorrect) {
+                tui.setForegroundColor(ANSICommands.Color.GREEN);
+                tui.print(String.valueOf(c));
+                tui.resetColors();
+            } else {
+                tui.setForegroundColor(ANSICommands.Color.RED);
+                if (!lastWasHold || i < typedText.length() - 1) {
+                    ANSICommands.underline();
+                }
+                tui.print(String.valueOf(c));
+                tui.resetColors();
+            }
+        }
+
+        if (lastWasHold && !typedText.isEmpty()) {
+            ANSICommands.moveLeft(1);
+        }
+
         tui.showCursor();
         tui.flush();
     }
