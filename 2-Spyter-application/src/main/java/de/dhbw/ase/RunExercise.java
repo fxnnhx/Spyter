@@ -20,7 +20,7 @@ public class RunExercise {
         boolean interrupted = false;
         ui.start();
 
-        ui.showText(exercise.getText());
+        ui.setText(exercise.getText());
 
         Action currentAction = ui.getNextAction();
         Instant start = Instant.now();

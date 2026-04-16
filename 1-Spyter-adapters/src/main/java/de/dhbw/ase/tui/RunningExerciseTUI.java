@@ -7,13 +7,23 @@ import de.dhbw.ase.valueObjects.SpyterCharacter;
 import de.dhbw.ase.valueObjects.SpyterText;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class RunningExerciseTUI implements RunningExerciseUI {
+    private static int CHARACTERS_PER_LINE = 50;
+    private StringBuilder typedText = new StringBuilder();
+    private String targetText = "";
+    private List<Boolean> correctChars =  new ArrayList<>();
+    private int currentLine = 0;
+    private int currentCharacter = 0;
+
     private final CharacterDomain domain;
     private final TUI tui;
     private int currentPosition = 0;
     private boolean cursorBehindChar = false;
+    private boolean lastWasHold = false;
 
     public RunningExerciseTUI(CharacterDomain domain) throws IOException {
         this.domain = domain;
@@ -56,6 +66,17 @@ public class RunningExerciseTUI implements RunningExerciseUI {
 
     @Override
     public void hold_incorrect(SpyterCharacter character) {
+        if (lastWasHold) {
+            this.typedText.deleteCharAt(typedText.length() - 1);
+            this.correctChars.removeLast();
+        }
+
+        this.typedText.append(character.getValue());
+        this.correctChars.add(false);
+        this.lastWasHold = true;
+
+        // old stuff
+
         tui.setForegroundColor(ANSICommands.Color.RED);
         tui.print(String.valueOf(character.getValue()));
         tui.resetColors();
@@ -67,6 +88,16 @@ public class RunningExerciseTUI implements RunningExerciseUI {
 
     @Override
     public void appendCorrectCharacter(SpyterCharacter character) {
+        if (lastWasHold) {
+            this.typedText.deleteCharAt(typedText.length() - 1);
+            this.correctChars.removeLast();
+        }
+        this.typedText.append(character.getValue());
+        this.correctChars.add(true);
+        this.lastWasHold = false;
+
+
+        // old stuff
         tui.setForegroundColor(ANSICommands.Color.GREEN);
         tui.print(String.valueOf(character.getValue()));
         tui.resetColors();
@@ -76,6 +107,17 @@ public class RunningExerciseTUI implements RunningExerciseUI {
 
     @Override
     public void appendIncorrectCharacter(SpyterCharacter character) {
+        if (lastWasHold) {
+            this.typedText.deleteCharAt(typedText.length() - 1);
+            this.correctChars.removeLast();
+        }
+        this.typedText.append(character.getValue());
+        this.correctChars.add(false);
+        this.lastWasHold = false;
+
+        // old stuff
+
+
         tui.setForegroundColor(ANSICommands.Color.RED);
         ANSICommands.underline();
         tui.print(String.valueOf(character.getValue()));
@@ -97,7 +139,12 @@ public class RunningExerciseTUI implements RunningExerciseUI {
     }
 
     @Override
-    public void showText(SpyterText text) {
+    public void setText(SpyterText text) {
+        this.targetText = text.toString();
+        drawTUI();
+
+
+
         currentPosition = 0;
         tui.clearScreen();
         tui.moveCursor(1, 1);

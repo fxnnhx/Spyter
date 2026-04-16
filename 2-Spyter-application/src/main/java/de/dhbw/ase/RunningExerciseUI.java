@@ -21,5 +21,5 @@ public interface RunningExerciseUI {
 
     void removeChar();
 
-    void showText(SpyterText text);
+    void setText(SpyterText text);
 }
