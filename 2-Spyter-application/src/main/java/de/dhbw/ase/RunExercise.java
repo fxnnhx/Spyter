@@ -53,6 +53,7 @@ public class RunExercise {
     }
 
     private void actOnRemovedChar(RunningExerciseUI ui) {
+        exercise.deleteLastCharacter();
         ui.removeChar();
     }
 }
