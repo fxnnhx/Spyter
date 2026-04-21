@@ -10,7 +10,6 @@ import java.io.IOException;
 
 public class Main {
   public static void main(String[] args) {
-    System.out.println("Hello world");
     CharacterDomain characterDomain = new CharacterDomainImpl();
     ConfigUIHandle configUi = new ConfigureExerciseTUI(new SimpleTerminalIO(), characterDomain, new SypterFileSystemImpl(' '));
       try {
