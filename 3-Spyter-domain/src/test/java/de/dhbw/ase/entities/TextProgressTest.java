@@ -1,6 +1,7 @@
 package de.dhbw.ase.entities;
 
 import de.dhbw.ase.constants.CharacterDomain;
+import de.dhbw.ase.helpers.FakeCharacterDomain;
 import de.dhbw.ase.valueObjects.CharacterCorrectionType;
 import de.dhbw.ase.valueObjects.KeyStrokeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
@@ -13,7 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TextProgressTest {
-    MockCharacterDomain mockCharacterDomain = new MockCharacterDomain();
+    FakeCharacterDomain mockCharacterDomain = new FakeCharacterDomain();
 
     void assertedAdvanceWithInputCheck(TextProgress progress, char character, CharacterCorrectionType correctionType) {
         assertTrue(progress.isNextChar(assertedCharConversion(character)));
@@ -186,21 +187,4 @@ class TextProgressTest {
         assertTrue(typedText.characterCorrections().isEmpty());
     }
 
-    class MockCharacterDomain implements CharacterDomain {
-
-        @Override
-        public boolean isDelimiter(char character) {
-            return  character == ' ';
-        }
-
-        @Override
-        public boolean isDomainCharacter(char character) {
-            return true;
-        }
-
-        @Override
-        public KeyStrokeCount keyStrokeOfCharacter(SpyterCharacter character) {
-            throw new UnsupportedOperationException("Not implemented");
-        }
-    }
 }
