@@ -3,10 +3,10 @@ package de.dhbw.ase.tui;
 import de.dhbw.ase.BlockingCorrector;
 import de.dhbw.ase.NonBlockingCorrector;
 import de.dhbw.ase.RandomTextGenerator;
-import de.dhbw.ase.SimpleTextGenerator;
 import de.dhbw.ase.constants.CharacterDomain;
 import de.dhbw.ase.valueObjects.KeyStrokeCount;
 import de.dhbw.ase.valueObjects.SpyterCharacter;
+import de.dhbw.ase.valueObjects.TextGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,13 +16,15 @@ class ConfigureExerciseTUITest {
     @Test
     void getRandomGenerator() {
         ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("y"), new FakeDomain(), new FakeSypterFileSystem(""));
-        Assertions.assertInstanceOf(RandomTextGenerator.class, configureExerciseTUI.getGenerator());
+        Optional<TextGenerator> generator = configureExerciseTUI.getGenerator();
+        assert generator.isPresent();
+        Assertions.assertInstanceOf(RandomTextGenerator.class, generator.get());
     }
 
     @Test
-    void getSimpleGenerator() {
+    void getWithoutGenerator() {
         ConfigureExerciseTUI configureExerciseTUI = new ConfigureExerciseTUI(new FakeAnsweringIO("n"), new FakeDomain(), new FakeSypterFileSystem(""));
-        Assertions.assertInstanceOf(SimpleTextGenerator.class, configureExerciseTUI.getGenerator());
+        Assertions.assertEquals(Optional.empty(), configureExerciseTUI.getGenerator());
     }
 
     @Test
