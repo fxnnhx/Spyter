@@ -1,11 +1,10 @@
 package de.dhbw.ase.tui;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-public class TUI implements AutoCloseable {
-    private final InputStream input;
+public class TUI {
+    private String originalTerminalSettings;
 
     public record TerminalChar(char character) {
         public boolean isCtrlC() {
@@ -18,14 +17,22 @@ public class TUI implements AutoCloseable {
 
     }
 
-    public TUI() throws IOException {
-        this(System.in);
-    }
+    public TUI() {}
 
-    public TUI(InputStream input) throws IOException {
-        this.input = input;
+    public void start() throws IOException {
+        saveTerminalSettings();
         enterRawMode();
         setupTerminal();
+    }
+
+    private void saveTerminalSettings() throws IOException {
+        try {
+            Process process = Runtime.getRuntime().exec(new String[]{"sh", "-c", "stty -g < /dev/tty"});
+            process.waitFor();
+            originalTerminalSettings = new String(process.getInputStream().readAllBytes()).trim();
+        } catch (InterruptedException e) {
+            throw new IOException(e.getMessage());
+        }
     }
 
     private void enterRawMode() throws IOException {
@@ -43,8 +50,25 @@ public class TUI implements AutoCloseable {
         ANSICommands.flush();
     }
 
+    private void resetTerminal() throws IOException {
+        ANSICommands.showCursor();
+        ANSICommands.disableAlternateScreen();
+        ANSICommands.flush();
+        restoreTerminalSettings();
+    }
+
+    private void restoreTerminalSettings() throws IOException {
+        if (originalTerminalSettings != null) {
+            try {
+                Runtime.getRuntime().exec(new String[]{"sh", "-c", "stty " + originalTerminalSettings + " < /dev/tty"}).waitFor();
+            } catch (InterruptedException e) {
+                throw new IOException(e.getMessage());
+            }
+        }
+    }
+
     public TerminalChar readChar() throws IOException {
-        int firstByte = input.read();
+        int firstByte = System.in.read();
         if (firstByte == -1) {
             throw new IOException("End of input stream");
         }
@@ -69,7 +93,7 @@ public class TUI implements AutoCloseable {
         byte[] bytes = new byte[numBytes];
         bytes[0] = (byte) firstByte;
         for (int i = 1; i < numBytes; i++) {
-            int next = input.read();
+            int next = System.in.read();
             if (next == -1) throw new IOException("Incomplete UTF-8 character");
             if ((next & 0b11000000) != 0b10000000) throw new IOException("Invalid continuation byte");
             bytes[i] = (byte) next;
@@ -138,7 +162,7 @@ public class TUI implements AutoCloseable {
         ANSICommands.flush();
     }
 
-    @Override
-    public void close() throws IOException {
+    public void end() throws IOException {
+        resetTerminal();
     }
 }
