@@ -6,13 +6,25 @@ import de.dhbw.ase.entities.TextProgress;
 import de.dhbw.ase.valueObjects.SpyterText;
 import de.dhbw.ase.valueObjects.TextGenerator;
 
+import java.util.Optional;
+
 public class ConfigureExercise {
 
     public Exercise configure(ConfigUIHandle uiHandle){
+        Exercise.Builder builder = new Exercise.Builder();
+
         SpyterText text = uiHandle.getBaseText();
-        TextGenerator generator = uiHandle.getGenerator();
+        builder.setText(text);
+
+        Optional<TextGenerator> generator = uiHandle.getGenerator();
+        if (generator.isPresent()){
+            builder.setGenerator(generator.get());
+        }
+
         Corrector corrector = uiHandle.getCorrector();
-        return new Exercise(corrector, new TextProgress(generator.generate(text)));
+        builder.setCorrector(corrector);
+
+        return builder.build();
     }
 
 }

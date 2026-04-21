@@ -33,15 +33,15 @@ public class ConfigureExerciseTUI implements ConfigUIHandle {
     }
 
     @Override
-    public TextGenerator getGenerator() {
+    public Optional<TextGenerator> getGenerator() {
         String answere = "";
         do {
             answere = ioHandle.question("Should the Text in your exercise be randomly generated? (y/n)");
         } while (!answere.equals("y") && !answere.equals("n"));
 
         return switch (answere) {
-            case "y" -> new RandomTextGenerator();
-            case "n" -> new SimpleTextGenerator();
+            case "y" -> Optional.of(new RandomTextGenerator());
+            case "n" -> Optional.empty();
             default -> throw new IllegalStateException("Unexpected value: " + answere);
         };
     }
