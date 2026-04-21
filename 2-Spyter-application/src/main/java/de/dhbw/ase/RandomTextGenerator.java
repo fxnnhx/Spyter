@@ -37,15 +37,21 @@ public class RandomTextGenerator implements TextGenerator {
         List<SpyterCharacter> characters = new LinkedList<>();
 
         for (int i = 0; i < wordAmount; i++) {
-            Random random = new Random();
-            int currentWordLength = random.nextInt(minWordLength, maxWordLength+1);
-            for (int j = 0; j < currentWordLength; j++) {
-                characters.add(this.generateCharacter(textBaseCharacters));
-            }
+            characters.addAll(generateWord(textBaseCharacters));
             characters.add(this.generateDelimiter(delimiters));
         }
         characters.removeLast();
         return new SpyterText(characters);
+    }
+
+    private List<SpyterCharacter> generateWord(List<SpyterCharacter> textBaseCharacters) {
+        List<SpyterCharacter> word = new ArrayList<>();
+        Random random = new Random();
+        int currentWordLength = random.nextInt(minWordLength, maxWordLength+1);
+        for (int j = 0; j < currentWordLength; j++) {
+            word.add(this.generateCharacter(textBaseCharacters));
+        }
+        return word;
     }
 
     private SpyterCharacter generateDelimiter(List<SpyterCharacter> delimiters) {
