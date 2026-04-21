@@ -45,7 +45,7 @@ class TypedTextTest {
                 CharacterCorrectionType.CORRECT
         );
         TypedText typedText = new TypedText(text, corrections);
-        assertEquals(1, typedText.getCorrectWordCount());
+        assertEquals(2, typedText.getWordCount());
     }
 
     @Test

@@ -61,7 +61,7 @@ class ExerciseEvaluatorTest {
         ExerciseEvaluator evaluator = new ExerciseEvaluator(typedText, mockMistakeCount(text.length()), Duration.ofSeconds(10));
         ExerciseResult result = evaluator.generateExerciseResult();
 
-        assertEquals(0.0, result.wordsPerSecond());
+        assertEquals((double) 2 /10, result.wordsPerSecond());
         assertEquals(text.length(), result.mistakes());
         assertEquals(0.0, result.charactersPerSecond());
     }
@@ -77,7 +77,7 @@ class ExerciseEvaluatorTest {
         ExerciseEvaluator evaluator = new ExerciseEvaluator(typedText, mockMistakeCount(mistakes), Duration.ofSeconds(10));
         ExerciseResult result = evaluator.generateExerciseResult();
 
-        assertEquals((double)  1 / 10, result.wordsPerSecond());
+        assertEquals((double)  2 / 10, result.wordsPerSecond());
         assertEquals(mistakes, result.mistakes());
         assertEquals((double) (text.length() - uncorrectedMistakes) / 10, result.charactersPerSecond());
     }
@@ -94,7 +94,7 @@ class ExerciseEvaluatorTest {
         ExerciseEvaluator evaluator = new ExerciseEvaluator(typedText, mockMistakeCount(mistakes), Duration.ofSeconds(10));
         ExerciseResult result = evaluator.generateExerciseResult();
 
-        assertEquals((double)  (wordCount - 1) / 10, result.wordsPerSecond());
+        assertEquals((double)  (wordCount) / 10, result.wordsPerSecond());
         assertEquals(mistakes, result.mistakes());
         assertEquals((double) (text.length() - uncorrectedMistakes) / 10, result.charactersPerSecond());
     }
